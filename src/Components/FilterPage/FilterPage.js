@@ -4,6 +4,7 @@ import buttonIcon from "../../Assests/Group.png";
 import downKey from "../../Assests/XMLID_224_.png";
 import "../Style/Style.css";
 import MultiRangeSlider from "./MultiRangeSlider";
+import ProductCard from "./ProductCard";
 
 const FilterPage = () => {
   const [checkBox, setCheckBox] = useState([
@@ -90,7 +91,7 @@ const FilterPage = () => {
   };
 
   const [min, setMin] = useState(0);
-  const [max, setMax] = useState(100);
+  const [max, setMax] = useState(4000);
   const extremeMin = 0;
   const extremeMax = 5000;
 
@@ -129,7 +130,7 @@ const FilterPage = () => {
         <span className="text-lg">Home/Filter page</span>
       </h2>
       <div className="grid grid-cols-3 gap-16 mt-10">
-        <div className="border-2 w-full rounded-lg px-3 pb-12 bg-gray-100/95 filter-page">
+        <div className="border-2 w-full rounded-lg px-3 pb-12 filter-page">
           <div className="flex justify-between items-center mt-4 border-b">
             <h2 className="text-2xl text-primary mb-2">Filters</h2>
             <button className="btn btn-outline hover:bg-primary hover:border-none flex justify-between items-center gap-x-2 border-primary btn-xs">
@@ -261,6 +262,25 @@ const FilterPage = () => {
               </button>
             </div>
           ))}
+
+          <div tabIndex={0} className="collapse collapse-arrow ">
+            <div className="collapse-title text-xl">Amenities</div>
+            <div className="collapse-content">
+              <p>Amenities</p>
+            </div>
+          </div>
+          <div tabIndex={0} className="collapse collapse-arrow ">
+            <div className="collapse-title text-xl">Furnishing</div>
+            <div className="collapse-content">
+              <p>Furnishing</p>
+            </div>
+          </div>
+          <div tabIndex={0} className="collapse collapse-arrow ">
+            <div className="collapse-title text-xl">Facing</div>
+            <div className="collapse-content">
+              <p>Facing</p>
+            </div>
+          </div>
         </div>
 
         <div className="col-span-2 card-area w-full">
@@ -289,6 +309,7 @@ const FilterPage = () => {
               }
             })}
           </div>
+          <ProductCard />
         </div>
       </div>
     </div>

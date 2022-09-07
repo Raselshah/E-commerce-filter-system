@@ -1,6 +1,8 @@
-/* .filter-page {
-  width: 438px;
+.filter-page {
+  /* width: 438px; */
+  background-color: #f9f9f9;
 }
+/*
 .card-area {
   width: 827px;
 } */
@@ -108,4 +110,13 @@
   margin-top: 4px;
   pointer-events: all;
   position: relative;
+}
+.cardButton {
+  height: 40px;
+  width: 170px;
+  background-color: #1e90a5;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 18px;
+  box-shadow: -4px 4px 6px rgba(0, 0, 0, 0.25);
 }
