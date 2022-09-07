@@ -5,7 +5,7 @@ import Logo from "../../Assests/Group 257.png";
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-100 h-16 border-b-2 max-w-screen-2xl px-14 my-3">
+    <div className="navbar bg-base-100 h-16 border-b-2 max-w-screen-2xl px-14 my-3 mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <Link to="/">
