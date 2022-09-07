@@ -1,4 +1,4 @@
-const dataList = [
+export const dataList = [
   {
     id: 1,
     name: "Residential Plots",
@@ -64,4 +64,30 @@ const dataList = [
   },
 ];
 
-export default dataList;
+export const buttonList = [
+  {
+    id: 1,
+    value: "+ 1 RK/1 BHK",
+    label: "+ 1 RK/1 BHK",
+  },
+  {
+    id: 2,
+    value: "+ 2 BHK",
+    label: "+ 2 BHK",
+  },
+  {
+    id: 3,
+    value: "+ 3 BHK",
+    label: "+ 3 BHK",
+  },
+  {
+    id: 4,
+    value: "+ 4 BHK",
+    label: "+ 4 BHK",
+  },
+  {
+    id: 5,
+    value: "+ 5 BHK",
+    label: "+ 5 BHK",
+  },
+];

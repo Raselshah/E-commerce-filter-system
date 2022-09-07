@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { dataList, buttonList } from "./dataList";
 import leftIcon from "../../Assests/XMLID_2224_.png";
 import buttonIcon from "../../Assests/Group.png";
 import downKey from "../../Assests/XMLID_224_.png";
 import "../Style/Style.css";
 import ProductCard from "./ProductCard.js";
-import dataList from "./dataList";
 import MultiRangeSlider from "./MultiRangeSlider";
 
 const FilterPage = () => {
   const [data, setData] = useState(dataList);
-  const [newData, setNewData] = useState([]);
-  const [price, setPrice] = useState([]);
+  const [filterButton, setFilterButton] = useState(buttonList);
+  const [result, setResultsFound] = useState("");
+
   const [bhk, setBhk] = useState("");
 
   const [checkBox, setCheckBox] = useState([
@@ -121,12 +122,14 @@ const FilterPage = () => {
     return;
   };
 
-  const handleBhk = (name) => {
-    setBhk(name);
+  const handleBhk = (value) => {
+    let updateData = data.filter((data) => data.square === value);
+
+    setData(updateData);
   };
 
   const applyFilter = () => {
-    let updateData = data;
+    let updateData = dataList;
 
     const checkData = checkBox
       .filter((item) => item.check)
@@ -137,21 +140,9 @@ const FilterPage = () => {
         checkData.includes(item.name.toLocaleLowerCase())
       );
     }
-    if (min && max) {
-      updateData.filter(
-        (item) =>
-          parseInt(item.price) >= parseInt(min) &&
-          parseInt(item.price) <= parseInt(max)
-      );
-    }
 
-    if (bhk) {
-      updateData.filter(
-        (item) => bhk.toLowerCase() === item.square.toLowerCase()
-      );
-    }
-
-    setNewData(updateData);
+    setData(updateData);
+    !updateData.length ? setResultsFound(false) : setResultsFound(true);
   };
   useEffect(() => {
     applyFilter();
@@ -201,36 +192,16 @@ const FilterPage = () => {
 
           <h2 className="mt-5 text-xl mb-4"> BHK Type</h2>
           <div className="grid grid-cols-3 gap-2 justify-between items-center">
-            <button
-              onClick={() => handleBhk("+ 1 RK/1 BHK")}
-              className="btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full text-primary hover:text-white"
-            >
-              <span className="text-xs">+ 1 RK/1 BHK</span>
-            </button>
-            <button
-              onClick={() => handleBhk("+ 2 BHK")}
-              className="btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full text-primary hover:text-white"
-            >
-              <span className="text-xs">+ 2 BHK</span>
-            </button>
-            <button
-              onClick={() => handleBhk("+ 3 BHK")}
-              className="btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full text-primary hover:text-white"
-            >
-              <span className="text-xs">+ 3 BHK</span>
-            </button>
-            <button
-              onClick={() => handleBhk("+ 4 BHK")}
-              className="btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full text-primary hover:text-white"
-            >
-              <span className="text-xs">+ 4 BHK</span>
-            </button>
-            <button
-              onClick={() => handleBhk("+ 5 BHK")}
-              className="btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full text-primary hover:text-white"
-            >
-              <span className="text-xs">+ 5 BHK</span>
-            </button>
+            {buttonList.map((btn) => (
+              <button
+                key={btn.id}
+                onClick={() => handleBhk(btn.value)}
+                className="btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full text-primary hover:text-white"
+              >
+                <span className="text-xs">{btn.value}</span>
+              </button>
+            ))}
+
             <button className="flex justify-between items-center text-primary hover:text-white">
               <span className="text-md">See more</span>
               <span>
@@ -249,7 +220,7 @@ const FilterPage = () => {
               setMinVal={setMin}
               setMaxVal={setMax}
               default="0"
-              onChange={({ min, max }) => setPrice(min, max)}
+              onChange={({ min, max }) => console.log(min, max)}
             />
 
             <div className="flex justify-center items-center gap-4 mt-4">
@@ -358,7 +329,7 @@ const FilterPage = () => {
               }
             })}
           </div>
-          <ProductCard newData={newData} />
+          <ProductCard newData={data} />
         </div>
       </div>
     </div>
