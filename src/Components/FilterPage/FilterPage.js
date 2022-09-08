@@ -11,6 +11,9 @@ const FilterPage = () => {
   const [data, setData] = useState(dataList);
   const [result, setResultsFound] = useState("");
 
+  const handleEmptyData = () => {
+    console.log("empty");
+  };
   const [checkBox, setCheckBox] = useState([
     {
       id: 1,
@@ -77,7 +80,6 @@ const FilterPage = () => {
     setPossessionCheckBox(changedCheckValue);
   };
   const handleCheckBox = (id) => {
-    console.log(id);
     const checkValue = checkBox;
     const changedCheckValue = checkValue.map((item) =>
       item.search.toLowerCase() === id.toLowerCase()
@@ -210,7 +212,7 @@ const FilterPage = () => {
         <span className="text-lg">Home/Filter page</span>
       </h2>
       <div className="grid grid-cols-3 gap-x-16 mt-10">
-        <div className="border-2 w-full rounded-lg px-3 pb-12 sticky top-16 ">
+        <div className="border-2 w-full rounded-lg px-3 filter-page sticky top-16 ">
           <div className="flex justify-between items-center mt-4 border-b">
             <h2 className="text-2xl text-primary mb-2">Filters</h2>
             <button className="btn btn-outline hover:bg-primary hover:border-none flex justify-between items-center gap-x-2 border-primary btn-xs">
@@ -218,7 +220,7 @@ const FilterPage = () => {
                 <img className="" src={buttonIcon} alt="" />
               </span>
               <span
-                onClick={() => handleCheckBox(0)}
+                onClick={() => handleEmptyData()}
                 className="text-xs text-primary hover:text-white"
               >
                 Clear Filter
@@ -432,6 +434,25 @@ const FilterPage = () => {
                   <div key={item.id} className="">
                     <button
                       onClick={() => handleCheckBox(item.search)}
+                      className="btn btn-xs flex justify-between items-center gap-x-3 bg-primary border-none"
+                    >
+                      <span className="text-white">{item.search}</span>
+                      <span className="text-white">X</span>
+                    </button>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </div>
+          <div className="mt-4 flex gap-x-4 flex-row">
+            {possessionCheckBox?.map((item) => {
+              if (item.check) {
+                return (
+                  <div key={item.id} className="">
+                    <button
+                      onClick={() => handlePossessionCheckBox(item.search)}
                       className="btn btn-xs flex justify-between items-center gap-x-3 bg-primary border-none"
                     >
                       <span className="text-white">{item.search}</span>

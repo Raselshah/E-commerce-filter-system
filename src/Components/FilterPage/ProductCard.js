@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import cardPhoto from "../../Assests/Rectangle 499.png";
 import location from "../../Assests/Group (2).png";
-import saveIcon from "../../Assests/Vector.png";
+import saveIcon from "../../Assests/Vector.svg";
 import shareIcon from "../../Assests/Group (4).png";
 import rera from "../../Assests/RERA.png";
 import home from "../../Assests/home-svgrepo-com 2.png";
@@ -11,6 +11,11 @@ import hand from "../../Assests/Group (3).png";
 import leftArrow from "../../Assests/XMLID_224_ (1).png";
 
 const ProductCard = ({ newData }) => {
+  const [toggle, setToggle] = useState();
+  const handleColorChange = (id) => {
+    setToggle(id);
+  };
+  console.log(toggle);
   return (
     <div>
       {newData.map((data) => (
@@ -60,8 +65,17 @@ const ProductCard = ({ newData }) => {
               <div className="flex flex-col gap-6">
                 <img className="img-fluid mt-[-20px] z-30" src={rera} alt="" />
                 <div className="flex flex-col justify-center items-center">
-                  <div className="cursor-pointer">
-                    <img className="img-fluid ml-1" src={saveIcon} alt="" />
+                  <div
+                    onClick={() => handleColorChange(data.id)}
+                    className="cursor-pointer"
+                  >
+                    <img
+                      className={`${
+                        toggle === data.id ? "bg-red-500" : "bg-white"
+                      } img-fluid ml-1`}
+                      src={saveIcon}
+                      alt=""
+                    />
 
                     <span className="text-xs text-center">Save</span>
                   </div>
