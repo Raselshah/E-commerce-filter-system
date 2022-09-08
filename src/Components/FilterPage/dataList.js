@@ -6,7 +6,7 @@ export const dataList = [
     home: "Villa",
     square: "2, 3 BHK Appartment",
     area: "2000-5000 sq.ft.",
-    price: 30000,
+    price: 5000,
     move: "Ready to move",
   },
   {
@@ -26,7 +26,7 @@ export const dataList = [
     home: "Villa",
     square: "+ 1 RK/1 BHK",
     area: "2000-5000 sq.ft.",
-    price: 25000,
+    price: 2500,
     move: "Under Construction",
   },
   {
@@ -36,7 +36,7 @@ export const dataList = [
     home: "Villa",
     square: "+ 4 BHK",
     area: "2000-5000 sq.ft.",
-    price: 25000,
+    price: 520,
     move: "New Launch",
   },
   {
@@ -46,7 +46,7 @@ export const dataList = [
     home: "Villa",
     square: "+ 3 BHK",
     area: "2000-5000 sq.ft.",
-    price: 25000,
+    price: 1500,
     move: "Under Construction",
   },
   {
@@ -56,7 +56,7 @@ export const dataList = [
     home: "Villa",
     square: "+ 2 BHK",
     area: "2000-5000 sq.ft.",
-    price: 25000,
+    price: 4000,
     move: "Ready to move",
   },
   {
@@ -66,7 +66,7 @@ export const dataList = [
     home: "Villa",
     square: "+ 1 RK/1 BHK",
     area: "2000-5000 sq.ft.",
-    price: 25000,
+    price: 3500,
     move: "Ready to move",
   },
 ];

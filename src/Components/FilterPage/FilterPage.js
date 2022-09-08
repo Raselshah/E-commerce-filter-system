@@ -154,6 +154,10 @@ const FilterPage = () => {
       );
     }
 
+    updateData = updateData.filter(
+      (item) => item.price >= min && item.price <= max
+    );
+
     setData(updateData);
     !updateData.length ? setResultsFound(false) : setResultsFound(true);
   };
@@ -162,14 +166,14 @@ const FilterPage = () => {
   }, [checkBox, min, max, bhk, possessionCheckBox]);
 
   return (
-    <div className="max-w-screen-2xl px-14 mt-10 mx-auto">
+    <div className="max-w-screen-2xl px-8 mt-10 mx-auto">
       <h2 className="flex gap-x-2 justify-start items-center">
         <span>
           <img src={leftIcon} alt="" />
         </span>
         <span className="text-lg">Home/Filter page</span>
       </h2>
-      <div className="grid grid-cols-3 gap-16 mt-10">
+      <div className="grid grid-cols-3 gap-x-32 mt-10">
         <div className="border-2 w-full rounded-lg px-3 pb-12 filter-page">
           <div className="flex justify-between items-center mt-4 border-b">
             <h2 className="text-2xl text-primary mb-2">Filters</h2>
@@ -320,7 +324,7 @@ const FilterPage = () => {
           <div className="flex justify-start gap-x-12 items-center mt-[-50px]">
             {" "}
             <h2 className="text-2xl text-secondary">Properties for you</h2>
-            <p className="text-xl">1720 results</p>
+            <p className="text-xl">{data.length} results</p>
           </div>
           <div className="mt-4 flex gap-x-4 flex-row">
             {checkBox?.map((item) => {

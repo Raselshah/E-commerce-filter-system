@@ -1,11 +1,12 @@
 .filter-page {
-  /* width: 438px; */
+  width: 438px;
   background-color: #f9f9f9;
+  height: 1328px;
 }
-/*
+
 .card-area {
   width: 827px;
-} */
+}
 .container {
   height: 70px;
   display: flex;
