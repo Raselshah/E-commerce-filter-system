@@ -54,39 +54,38 @@ const FilterPage = () => {
 
   const [possessionCheckBox, setPossessionCheckBox] = useState([
     {
-      id: 1,
+      _id: 8,
       search: "Ready to move",
       check: false,
     },
     {
-      id: 2,
+      _id: 9,
       search: "CasaGrand Hazen",
       check: false,
     },
     {
-      id: 3,
+      _id: 10,
       search: "New Launch",
       check: false,
     },
   ]);
 
   const handlePossessionCheckBox = (id) => {
-    setPossessionCheckBox((prev) => {
-      return prev.map((item) => {
-        if (item.id === id) {
-          return { ...item, check: !item.check };
-        } else if (id === 0) {
-          return item.check === false;
-        } else {
-          return { ...item };
-        }
-      });
-    });
+    const checkValue = possessionCheckBox;
+    const changedCheckValue = checkValue.map((item) =>
+      item.search.toLowerCase() === id.toLowerCase()
+        ? { ...item, check: !item.check }
+        : item
+    );
+    setPossessionCheckBox(changedCheckValue);
   };
   const handleCheckBox = (id) => {
+    console.log(id);
     const checkValue = checkBox;
     const changedCheckValue = checkValue.map((item) =>
-      item.id === id ? { ...item, check: !item.check } : item
+      item.search.toLowerCase() === id.toLowerCase()
+        ? { ...item, check: !item.check }
+        : item
     );
     setCheckBox(changedCheckValue);
   };
@@ -126,6 +125,9 @@ const FilterPage = () => {
     // bhkButton filtering data
     let updateData = data.filter((data) => data.square === value);
 
+    if (updateData.length === 0) {
+      setResultsFound(false);
+    }
     setData(updateData);
   };
 
@@ -154,6 +156,7 @@ const FilterPage = () => {
       );
     }
 
+    // Price Range filtering data
     updateData = updateData.filter(
       (item) => item.price >= min && item.price <= max
     );
@@ -191,21 +194,25 @@ const FilterPage = () => {
           </div>
           <h2 className="mt-5 text-xl mb-4">Property Type</h2>
 
-          {checkBox.map((item) => (
-            <div key={item.id} className="pl-16 mt-2">
-              <button onClick={() => handleCheckBox(item.id)} className="">
-                <input
-                  type="checkbox"
-                  value={item.search}
-                  id={item.id}
-                  class="default:ring-2"
-                />
-                <label className="pl-4" htmlFor={item.search}>
-                  {item.search}
-                </label>
-              </button>
-            </div>
-          ))}
+          <div className="products flex flex-col gap-4 pl-16 mt-2">
+            {checkBox.map((item) => (
+              <div key={item.id} className="product">
+                <div
+                  onClick={() => handleCheckBox(item.search)}
+                  className="productInput"
+                >
+                  <input type="checkbox" id={item.id} />
+                  {item.check && (
+                    <>
+                      <div className="productInputBefore"></div>
+                      <div className="productInputAfter">✔</div>
+                    </>
+                  )}
+                </div>
+                <label htmlFor={item.id}>{item.search}</label>
+              </div>
+            ))}
+          </div>
 
           <h2 className="mt-5 text-xl mb-4"> BHK Type</h2>
           <div className="grid grid-cols-3 gap-2 justify-between items-center">
@@ -281,7 +288,27 @@ const FilterPage = () => {
           </div>
           <h2 className="mt-5 text-xl mb-4">Possession Status</h2>
 
-          {possessionCheckBox.map((item) => (
+          <div className="products flex flex-col gap-4 pl-16 mt-2">
+            {possessionCheckBox.map((items) => (
+              <div key={items._id} className="product">
+                <div
+                  onClick={() => handlePossessionCheckBox(items.search)}
+                  className="productInput"
+                >
+                  <input type="checkbox" id={items._id} />
+                  {items.check && (
+                    <>
+                      <div className="productInputBefore"></div>
+                      <div className="productInputAfter">✔</div>
+                    </>
+                  )}
+                </div>
+                <label htmlFor={items._id}>{items.search}</label>
+              </div>
+            ))}
+          </div>
+
+          {/* {possessionCheckBox.map((item) => (
             <div key={item.id} className="pl-16 mt-2">
               <button
                 onClick={() => handlePossessionCheckBox(item.id)}
@@ -298,7 +325,7 @@ const FilterPage = () => {
                 </label>
               </button>
             </div>
-          ))}
+          ))} */}
 
           <div tabIndex={0} className="collapse collapse-arrow ">
             <div className="collapse-title text-xl">Amenities</div>
@@ -321,11 +348,15 @@ const FilterPage = () => {
         </div>
 
         <div className="col-span-2 card-area w-full">
-          <div className="flex justify-start gap-x-12 items-center mt-[-50px]">
+          <div className="flex justify-start gap-x-3 items-center mt-[-50px]">
             {" "}
-            <h2 className="text-2xl text-secondary">Properties for you</h2>
-            <p className="text-xl">{data.length} results</p>
+            <h2 className="text-2xl text-secondary">
+              Properties <span className="text-accent">for you</span>
+            </h2>
+            <div className="b-left"></div>
+            <p className="text-2xl">{data.length} results</p>
           </div>
+
           <div className="mt-4 flex gap-x-4 flex-row">
             {checkBox?.map((item) => {
               if (item.check) {
@@ -346,6 +377,7 @@ const FilterPage = () => {
               }
             })}
           </div>
+          {result ? "" : <p className="text-center">No result found...</p>}
           <ProductCard newData={data} />
         </div>
       </div>
