@@ -131,3 +131,27 @@
 .label-range {
   margin-bottom: 2.5rem;
 }
+.background-footer {
+  background-image: url("../../Assests/My project (1) 1.png");
+  background-color: rgba(189, 223, 229, 0.764);
+  background-blend-mode: overlay;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 372px;
+}
+.footer-font {
+  color: #2f2f2f;
+  font-size: 15px;
+  line-height: 22.5px;
+  font-weight: 500;
+}
+.footer-title {
+  color: #1e90a5;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22.5px;
+}
+.footer-bg {
+  background: #bddfe5;
+  border-top: 3px solid #1e91a5a7;
+}

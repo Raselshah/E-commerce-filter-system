@@ -53,7 +53,7 @@ const ProductCard = ({ newData }) => {
                   </div>
                   <div className="flex justify-center items-center gap-4">
                     <img className="img-fluid w-5 h-5" src={hand} alt="" />
-                    <p>Ready to move</p>
+                    <p>{data.move}</p>
                   </div>
                 </div>
               </div>

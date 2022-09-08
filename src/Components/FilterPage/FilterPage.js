@@ -123,6 +123,7 @@ const FilterPage = () => {
   };
 
   const handleBhk = (value) => {
+    // bhkButton filtering data
     let updateData = data.filter((data) => data.square === value);
 
     setData(updateData);
@@ -131,6 +132,7 @@ const FilterPage = () => {
   const applyFilter = () => {
     let updateData = dataList;
 
+    // checkBox filtering data
     const checkData = checkBox
       .filter((item) => item.check)
       .map((item) => item.search.toLowerCase());
@@ -141,12 +143,23 @@ const FilterPage = () => {
       );
     }
 
+    // possessionCheckBox filtering data
+    const possessionCheck = possessionCheckBox
+      .filter((item) => item.check)
+      .map((item) => item.search.toLowerCase());
+
+    if (possessionCheck.length) {
+      updateData = updateData.filter((item) =>
+        possessionCheck.includes(item.move.toLowerCase())
+      );
+    }
+
     setData(updateData);
     !updateData.length ? setResultsFound(false) : setResultsFound(true);
   };
   useEffect(() => {
     applyFilter();
-  }, [checkBox, min, max, bhk]);
+  }, [checkBox, min, max, bhk, possessionCheckBox]);
 
   return (
     <div className="max-w-screen-2xl px-14 mt-10 mx-auto">
@@ -272,12 +285,12 @@ const FilterPage = () => {
               >
                 <input
                   type="checkbox"
-                  value={item.name}
+                  value={item.search}
                   id={item.id}
                   class="default:ring-2"
                 />
-                <label className="pl-4" htmlFor={item.name}>
-                  {item.name}
+                <label className="pl-4" htmlFor={item.search}>
+                  {item.search}
                 </label>
               </button>
             </div>
