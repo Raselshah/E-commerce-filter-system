@@ -11,22 +11,21 @@ import hand from "../../Assests/Group (3).png";
 import leftArrow from "../../Assests/XMLID_224_ (1).png";
 
 const ProductCard = ({ newData }) => {
-  console.log(newData);
   return (
     <div>
       {newData.map((data) => (
         <div
           key={data.id}
-          className="card overflow-visible lg:card-side bg-gray-100/80 p-2 border shadow-xl mt-8"
+          className="card overflow-visible lg:card-side bg-gray-100/80 p-2 border mt-8"
         >
           <figure>
             <img className="img-fluid" src={cardPhoto} alt="Album" />
           </figure>
-          <div className="px-3 w-full">
+          <div className="pl-3 w-full">
             <div className="flex justify-between items-items">
-              <div className="div">
+              <div className="w-full">
                 <h2 className="text-2xl">{data.name}</h2>
-                <p className="flex justify-center gap-x-2 items-center mt-2">
+                <p className="flex justify-start gap-x-2 items-center mt-2">
                   <span>
                     <img className="img-fluid" src={location} alt="" />
                   </span>
@@ -37,7 +36,7 @@ const ProductCard = ({ newData }) => {
                 </p>
 
                 <div className="flex justify-between items-center mt-8">
-                  <div className="flex justify-center items-center gap-4">
+                  <div className="flex justify-start items-center gap-4">
                     <img className="img-fluid w-5 h-5" src={home} alt="" />
                     <p>Villa</p>
                   </div>
@@ -49,7 +48,7 @@ const ProductCard = ({ newData }) => {
                 <div className="flex justify-between items-center mt-8">
                   <div className="flex justify-center items-center gap-4">
                     <img className="img-fluid w-5 h-5" src={area} alt="" />
-                    <p>2000-5000 sq.ft.</p>
+                    <p>{data.area} sq.ft.</p>
                   </div>
                   <div className="flex justify-center items-center gap-4">
                     <img className="img-fluid w-5 h-5" src={hand} alt="" />
@@ -61,11 +60,11 @@ const ProductCard = ({ newData }) => {
               <div className="flex flex-col gap-6">
                 <img className="img-fluid mt-[-20px] z-30" src={rera} alt="" />
                 <div className="flex flex-col justify-center items-center">
-                  <p>
+                  <div className="cursor-pointer">
                     <img className="img-fluid ml-1" src={saveIcon} alt="" />
 
                     <span className="text-xs text-center">Save</span>
-                  </p>
+                  </div>
                 </div>
                 <div className="flex flex-col justify-center items-center">
                   <p>

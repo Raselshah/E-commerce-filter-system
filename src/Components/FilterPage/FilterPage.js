@@ -9,10 +9,7 @@ import MultiRangeSlider from "./MultiRangeSlider";
 
 const FilterPage = () => {
   const [data, setData] = useState(dataList);
-  const [filterButton, setFilterButton] = useState(buttonList);
   const [result, setResultsFound] = useState("");
-
-  const [bhk, setBhk] = useState("");
 
   const [checkBox, setCheckBox] = useState([
     {
@@ -91,9 +88,9 @@ const FilterPage = () => {
   };
 
   const [min, setMin] = useState(200);
-  const [max, setMax] = useState(4000);
-  const extremeMin = 0;
-  const extremeMax = 5000;
+  const [max, setMax] = useState(5000);
+  const extremeMin = 200;
+  const extremeMax = 4000;
   const handleMinChange = (e) => {
     let val = e.target.value;
     if (val > max && !!max) {
@@ -121,6 +118,38 @@ const FilterPage = () => {
     return;
   };
 
+  const [minArea, setMinArea] = useState(200);
+  const [maxArea, setMaxArea] = useState(6000);
+  const extremeMinArea = 300;
+  const extremeMaxArea = 5000;
+
+  const handleMinAreaChange = (e) => {
+    let val = e.target.value;
+    if (val > maxArea && !!maxArea) {
+      setMinArea(maxArea - 1);
+      return;
+    }
+    if (val < extremeMinArea) {
+      setMinArea(extremeMinArea);
+      return;
+    }
+    setMinArea(val);
+    return;
+  };
+
+  const handleMaxAreaChange = (e) => {
+    if (e.target.value < minArea && !!minArea) {
+      setMaxArea(minArea + 1);
+      return;
+    }
+    if (e.target.value > extremeMaxArea) {
+      setMaxArea(extremeMaxArea);
+      return;
+    }
+    setMaxArea(e.target.value);
+    return;
+  };
+
   const handleBhk = (value) => {
     // bhkButton filtering data
     let updateData = data.filter((data) => data.square === value);
@@ -130,7 +159,6 @@ const FilterPage = () => {
     }
     setData(updateData);
   };
-
   const applyFilter = () => {
     let updateData = dataList;
 
@@ -161,23 +189,28 @@ const FilterPage = () => {
       (item) => item.price >= min && item.price <= max
     );
 
+    // area filtering data
+    updateData = updateData.filter(
+      (item) => item.area >= minArea && item.area <= maxArea
+    );
+
     setData(updateData);
     !updateData.length ? setResultsFound(false) : setResultsFound(true);
   };
   useEffect(() => {
     applyFilter();
-  }, [checkBox, min, max, bhk, possessionCheckBox]);
+  }, [checkBox, min, max, possessionCheckBox, minArea, maxArea]);
 
   return (
-    <div className="max-w-screen-2xl px-8 mt-10 mx-auto">
+    <div className="max-w-screen-2xl px-12 mt-10 mx-auto">
       <h2 className="flex gap-x-2 justify-start items-center">
         <span>
           <img src={leftIcon} alt="" />
         </span>
         <span className="text-lg">Home/Filter page</span>
       </h2>
-      <div className="grid grid-cols-3 gap-x-32 mt-10">
-        <div className="border-2 w-full rounded-lg px-3 pb-12 filter-page">
+      <div className="grid grid-cols-3 gap-x-16 mt-10">
+        <div className="border-2 w-full rounded-lg px-3 pb-12 sticky top-16 ">
           <div className="flex justify-between items-center mt-4 border-b">
             <h2 className="text-2xl text-primary mb-2">Filters</h2>
             <button className="btn btn-outline hover:bg-primary hover:border-none flex justify-between items-center gap-x-2 border-primary btn-xs">
@@ -220,7 +253,7 @@ const FilterPage = () => {
               <button
                 key={btn.id}
                 onClick={() => handleBhk(btn.value)}
-                className="btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full text-primary hover:text-white"
+                className={` btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full text-primary hover:text-white`}
               >
                 <span className="text-xs">{btn.value}</span>
               </button>
@@ -247,7 +280,7 @@ const FilterPage = () => {
               onChange={({ min, max }) => console.log(min, max)}
             />
 
-            <div className="flex justify-center items-center gap-4 mt-4">
+            <div className="flex justify-center items-center gap-4 px-12  mt-6">
               <div className="w-full">
                 {" "}
                 <label for="name" style={{ color: "#212121" }}>
@@ -286,6 +319,60 @@ const FilterPage = () => {
               </div>
             </div>
           </div>
+
+          {/* area */}
+          <div className="">
+            <h2 className="mt-5 text-xl mb-4">Area</h2>
+
+            <MultiRangeSlider
+              valueRange={[200, 6000]}
+              minVal={minArea ? minArea : 0}
+              maxVal={maxArea ? maxArea : 0}
+              setMinVal={setMinArea}
+              setMaxVal={setMaxArea}
+              default="0"
+              onChange={({ min, max }) => console.log(min, max)}
+            />
+
+            <div className="flex justify-center items-center gap-4 px-12 mt-6">
+              <div className="w-full">
+                {" "}
+                <label for="name" style={{ color: "#212121" }}>
+                  Min Budget
+                </label>
+                <input
+                  type="number"
+                  id="name"
+                  name="name"
+                  required
+                  className="w-full"
+                  minLength="4"
+                  maxLength="8"
+                  size="10"
+                  value={minArea}
+                  onChange={handleMinAreaChange}
+                />
+              </div>
+              <div className="w-full">
+                <label for="name" style={{ color: "#212121" }}>
+                  Max Budget
+                </label>
+
+                <input
+                  type="number"
+                  id="name"
+                  name="name"
+                  required
+                  className="w-full"
+                  minLength="4"
+                  maxLength="8"
+                  size="10"
+                  value={maxArea}
+                  onChange={handleMaxAreaChange}
+                />
+              </div>
+            </div>
+          </div>
           <h2 className="mt-5 text-xl mb-4">Possession Status</h2>
 
           <div className="products flex flex-col gap-4 pl-16 mt-2">
@@ -308,25 +395,6 @@ const FilterPage = () => {
             ))}
           </div>
 
-          {/* {possessionCheckBox.map((item) => (
-            <div key={item.id} className="pl-16 mt-2">
-              <button
-                onClick={() => handlePossessionCheckBox(item.id)}
-                className=""
-              >
-                <input
-                  type="checkbox"
-                  value={item.search}
-                  id={item.id}
-                  class="default:ring-2"
-                />
-                <label className="pl-4" htmlFor={item.search}>
-                  {item.search}
-                </label>
-              </button>
-            </div>
-          ))} */}
-
           <div tabIndex={0} className="collapse collapse-arrow ">
             <div className="collapse-title text-xl">Amenities</div>
             <div className="collapse-content">
@@ -347,7 +415,7 @@ const FilterPage = () => {
           </div>
         </div>
 
-        <div className="col-span-2 card-area w-full">
+        <div className="col-span-2 w-full">
           <div className="flex justify-start gap-x-3 items-center mt-[-50px]">
             {" "}
             <h2 className="text-2xl text-secondary">
@@ -363,9 +431,8 @@ const FilterPage = () => {
                 return (
                   <div key={item.id} className="">
                     <button
-                      onClick={() => handleCheckBox(item.id)}
+                      onClick={() => handleCheckBox(item.search)}
                       className="btn btn-xs flex justify-between items-center gap-x-3 bg-primary border-none"
-                      key={item.id}
                     >
                       <span className="text-white">{item.search}</span>
                       <span className="text-white">X</span>
