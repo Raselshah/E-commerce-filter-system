@@ -6,10 +6,22 @@ import downKey from "../../Assests/XMLID_224_.png";
 import "../Style/Style.css";
 import ProductCard from "./ProductCard.js";
 import MultiRangeSlider from "./MultiRangeSlider";
-
+import Pagination from "../Pagination/Pagination";
 const FilterPage = () => {
   const [data, setData] = useState(dataList);
   const [result, setResultsFound] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage] = useState(3);
+
+  const indexOfLastData = currentPage * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+
+  const currentData = data?.slice(indexOfFirstData, indexOfLastData);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   const handleEmptyData = () => {
     console.log("empty");
@@ -212,7 +224,7 @@ const FilterPage = () => {
         <span className="text-lg">Home/Filter page</span>
       </h2>
       <div className="grid grid-cols-3 gap-x-16 mt-10">
-        <div className="border-2 w-full rounded-lg px-3 filter-page sticky top-16 ">
+        <div className="border-2 overflow-y-scroll overflow-hidden w-full filter-page rounded-lg px-3 sticky top-16 ">
           <div className="flex justify-between items-center mt-4 border-b">
             <h2 className="text-2xl text-primary mb-2">Filters</h2>
             <button className="btn btn-outline hover:bg-primary hover:border-none flex justify-between items-center gap-x-2 border-primary btn-xs">
@@ -227,6 +239,7 @@ const FilterPage = () => {
               </span>
             </button>
           </div>
+
           <h2 className="mt-5 text-xl mb-4">Property Type</h2>
 
           <div className="products flex flex-col gap-4 pl-16 mt-2">
@@ -400,19 +413,67 @@ const FilterPage = () => {
           <div tabIndex={0} className="collapse collapse-arrow ">
             <div className="collapse-title text-xl">Amenities</div>
             <div className="collapse-content">
-              <p>Amenities</p>
+              {checkBox.map((item) => (
+                <div key={item.id} className="product">
+                  <div
+                    onClick={() => handleCheckBox(item.search)}
+                    className="productInput"
+                  >
+                    <input type="checkbox" id={item.id} />
+                    {item.check && (
+                      <>
+                        <div className="productInputBefore"></div>
+                        <div className="productInputAfter">✔</div>
+                      </>
+                    )}
+                  </div>
+                  <label htmlFor={item.id}>{item.search}</label>
+                </div>
+              ))}
             </div>
           </div>
           <div tabIndex={0} className="collapse collapse-arrow ">
             <div className="collapse-title text-xl">Furnishing</div>
             <div className="collapse-content">
-              <p>Furnishing</p>
+              {checkBox.map((item) => (
+                <div key={item.id} className="product">
+                  <div
+                    onClick={() => handleCheckBox(item.search)}
+                    className="productInput"
+                  >
+                    <input type="checkbox" id={item.id} />
+                    {item.check && (
+                      <>
+                        <div className="productInputBefore"></div>
+                        <div className="productInputAfter">✔</div>
+                      </>
+                    )}
+                  </div>
+                  <label htmlFor={item.id}>{item.search}</label>
+                </div>
+              ))}
             </div>
           </div>
           <div tabIndex={0} className="collapse collapse-arrow ">
             <div className="collapse-title text-xl">Facing</div>
             <div className="collapse-content">
-              <p>Facing</p>
+              {checkBox.map((item) => (
+                <div key={item.id} className="product">
+                  <div
+                    onClick={() => handleCheckBox(item.search)}
+                    className="productInput"
+                  >
+                    <input type="checkbox" id={item.id} />
+                    {item.check && (
+                      <>
+                        <div className="productInputBefore"></div>
+                        <div className="productInputAfter">✔</div>
+                      </>
+                    )}
+                  </div>
+                  <label htmlFor={item.id}>{item.search}</label>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -466,7 +527,14 @@ const FilterPage = () => {
             })}
           </div>
           {result ? "" : <p className="text-center">No result found...</p>}
-          <ProductCard newData={data} />
+          <ProductCard newData={currentData} />
+
+          <Pagination
+            currentPage={currentPage}
+            dataPerPage={dataPerPage}
+            totalData={data?.length}
+            paginate={paginate}
+          />
         </div>
       </div>
     </div>
