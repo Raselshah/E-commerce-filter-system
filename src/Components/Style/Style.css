@@ -205,3 +205,16 @@
 .product > label {
   cursor: pointer;
 }
+.detailsPage {
+  background: #f9f9f9;
+}
+.detailsPageLine {
+  border: 1px solid #b7b7b7;
+  width: 305px;
+  margin-top: 4px;
+}
+.detailsPageLineTwo {
+  border: 1px solid #b7b7b7;
+  width: 205px;
+  margin-top: 4px;
+}

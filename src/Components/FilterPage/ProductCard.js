@@ -9,8 +9,10 @@ import square from "../../Assests/square-ui-svgrepo-com 1 (1).png";
 import area from "../../Assests/area-svgrepo-com 1 (1).png";
 import hand from "../../Assests/Group (3).png";
 import leftArrow from "../../Assests/XMLID_224_ (1).png";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ newData }) => {
+  const navigate = useNavigate();
   const [toggle, setToggle] = useState();
   const handleColorChange = (id) => {
     setToggle(id);
@@ -91,7 +93,10 @@ const ProductCard = ({ newData }) => {
             </div>
             <div className="card-actions justify-between mt-8">
               <p className="text-2xl font-bold">{data.price}</p>
-              <button className="cardButton flex justify-between items-center gap-x-2 px-4">
+              <button
+                onClick={() => navigate("/details")}
+                className="cardButton flex justify-between items-center gap-x-2 px-4"
+              >
                 <span>Know more</span>
                 <img src={leftArrow} alt="" />
               </button>
