@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { dataList, buttonList } from "./dataList";
+import {
+  dataList,
+  buttonList,
+  propertyList,
+  positionStatus,
+  Amenities,
+  Furnishing,
+  Facing,
+} from "./dataList";
 import leftIcon from "../../Assests/XMLID_2224_.png";
 import buttonIcon from "../../Assests/Group.png";
 import downKey from "../../Assests/XMLID_224_.png";
@@ -7,6 +15,7 @@ import "../Style/Style.css";
 import ProductCard from "./ProductCard.js";
 import MultiRangeSlider from "./MultiRangeSlider";
 import Pagination from "../Pagination/Pagination";
+import MultiAreaSlider from "./MultiAreaSlider";
 const FilterPage = () => {
   const [data, setData] = useState(dataList);
   const [result, setResultsFound] = useState("");
@@ -23,65 +32,19 @@ const FilterPage = () => {
     setCurrentPage(pageNumber);
   };
 
+  const [checkBox, setCheckBox] = useState(propertyList);
+
+  const [possessionCheckBox, setPossessionCheckBox] = useState(positionStatus);
+
+  const [amenities, setAmenities] = useState(Amenities);
+  const [furnishing, setFurnishing] = useState(Furnishing);
+  const [facing, setFacing] = useState(Facing);
+
+  const [buttonAllList, setButtonAllList] = useState(buttonList.slice(0, 5));
+
   const handleEmptyData = () => {
-    console.log("empty");
+    console.log("fs");
   };
-  const [checkBox, setCheckBox] = useState([
-    {
-      id: 1,
-      search: "Appartment",
-      check: false,
-    },
-    {
-      id: 2,
-      search: "CasaGrand Hazen",
-      check: false,
-    },
-    {
-      id: 3,
-      search: "Residential Plots",
-      check: false,
-    },
-    {
-      id: 4,
-      search: "Studio",
-      check: false,
-    },
-    {
-      id: 5,
-      search: "Duplex",
-      check: false,
-    },
-    {
-      id: 6,
-      search: "Villa",
-      check: false,
-    },
-    {
-      id: 7,
-      search: "Agricultural Land",
-      check: false,
-    },
-  ]);
-
-  const [possessionCheckBox, setPossessionCheckBox] = useState([
-    {
-      _id: 8,
-      search: "Ready to move",
-      check: false,
-    },
-    {
-      _id: 9,
-      search: "CasaGrand Hazen",
-      check: false,
-    },
-    {
-      _id: 10,
-      search: "New Launch",
-      check: false,
-    },
-  ]);
-
   const handlePossessionCheckBox = (id) => {
     const checkValue = possessionCheckBox;
     const changedCheckValue = checkValue.map((item) =>
@@ -101,10 +64,10 @@ const FilterPage = () => {
     setCheckBox(changedCheckValue);
   };
 
-  const [min, setMin] = useState(200);
-  const [max, setMax] = useState(5000);
-  const extremeMin = 200;
-  const extremeMax = 4000;
+  const [min, setMin] = useState(100000);
+  const [max, setMax] = useState(1000000);
+  const extremeMin = 100000;
+  const extremeMax = 1000000;
   const handleMinChange = (e) => {
     let val = e.target.value;
     if (val > max && !!max) {
@@ -133,8 +96,8 @@ const FilterPage = () => {
   };
 
   const [minArea, setMinArea] = useState(200);
-  const [maxArea, setMaxArea] = useState(6000);
-  const extremeMinArea = 300;
+  const [maxArea, setMaxArea] = useState(5000);
+  const extremeMinArea = 200;
   const extremeMaxArea = 5000;
 
   const handleMinAreaChange = (e) => {
@@ -163,16 +126,9 @@ const FilterPage = () => {
     setMaxArea(e.target.value);
     return;
   };
+  const [active, setActive] = useState(null);
+  const [activeButton, setActiveButton] = useState();
 
-  const handleBhk = (value) => {
-    // bhkButton filtering data
-    let updateData = data.filter((data) => data.square === value);
-
-    if (updateData.length === 0) {
-      setResultsFound(false);
-    }
-    setData(updateData);
-  };
   const applyFilter = () => {
     let updateData = dataList;
 
@@ -185,6 +141,12 @@ const FilterPage = () => {
       updateData = updateData.filter((item) =>
         checkData.includes(item.name.toLocaleLowerCase())
       );
+    }
+
+    //  bhkButton filtering data
+    if (activeButton) {
+      updateData = data.filter((data) => data.square === activeButton);
+      setActive(activeButton);
     }
 
     // possessionCheckBox filtering data
@@ -208,12 +170,13 @@ const FilterPage = () => {
       (item) => item.area >= minArea && item.area <= maxArea
     );
 
+    console.log(updateData);
     setData(updateData);
     !updateData.length ? setResultsFound(false) : setResultsFound(true);
   };
   useEffect(() => {
     applyFilter();
-  }, [checkBox, min, max, possessionCheckBox, minArea, maxArea]);
+  }, [checkBox, min, max, possessionCheckBox, minArea, maxArea, activeButton]);
 
   return (
     <div className="max-w-screen-2xl px-12 mt-10 mx-auto">
@@ -264,29 +227,49 @@ const FilterPage = () => {
 
           <h2 className="mt-5 text-xl mb-4"> BHK Type</h2>
           <div className="grid grid-cols-3 gap-2 justify-between items-center">
-            {buttonList.map((btn) => (
+            {buttonAllList.map((btn) => (
               <button
+                disabled={active ? btn.value !== active : btn.value === active}
                 key={btn.id}
-                onClick={() => handleBhk(btn.value)}
-                className={` btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full text-primary hover:text-white`}
+                onClick={() => setActiveButton(btn.value)}
+                className={`${
+                  active === btn.value
+                    ? "text-white bg-primary"
+                    : "text-primary"
+                } btn btn-sm btn-outline border-primary hover:bg-primary hover:border-none rounded-full hover:text-white `}
               >
                 <span className="text-xs">{btn.value}</span>
               </button>
             ))}
 
-            <button className="flex justify-between items-center text-primary hover:text-white">
-              <span className="text-md">See more</span>
-              <span>
-                <img className="w-3 h-2" src={downKey} alt="" />
-              </span>
-            </button>
+            {buttonAllList.length === 5 ? (
+              <button
+                onClick={() => setButtonAllList(buttonList)}
+                className="flex justify-between items-center text-primary hover:text-white"
+              >
+                <span className="text-md text-primary">See more</span>
+                <span>
+                  <img className="w-3 h-2" src={downKey} alt="" />
+                </span>
+              </button>
+            ) : (
+              <button
+                onClick={() => setButtonAllList(buttonList.slice(0, 5))}
+                className="flex justify-between items-center text-primary hover:text-white"
+              >
+                <span className="text-md text-primary">See less</span>
+                <span>
+                  <img className="w-3 h-2" src={downKey} alt="" />
+                </span>
+              </button>
+            )}
           </div>
 
           <div className="">
             <h2 className="mt-5 text-xl mb-4">Price Range</h2>
 
             <MultiRangeSlider
-              valueRange={[200, 5000]}
+              valueRange={[100000, 1000000]}
               minVal={min ? min : 0}
               maxVal={max ? max : 0}
               setMinVal={setMin}
@@ -339,8 +322,8 @@ const FilterPage = () => {
           <div className="">
             <h2 className="mt-5 text-xl mb-4">Area</h2>
 
-            <MultiRangeSlider
-              valueRange={[200, 6000]}
+            <MultiAreaSlider
+              valueRange={[200, 5000]}
               minVal={minArea ? minArea : 0}
               maxVal={maxArea ? maxArea : 0}
               setMinVal={setMinArea}
@@ -413,7 +396,7 @@ const FilterPage = () => {
           <div tabIndex={0} className="collapse collapse-arrow ">
             <div className="collapse-title text-xl">Amenities</div>
             <div className="collapse-content">
-              {checkBox.map((item) => (
+              {amenities.map((item) => (
                 <div key={item.id} className="product">
                   <div
                     onClick={() => handleCheckBox(item.search)}
@@ -435,7 +418,7 @@ const FilterPage = () => {
           <div tabIndex={0} className="collapse collapse-arrow ">
             <div className="collapse-title text-xl">Furnishing</div>
             <div className="collapse-content">
-              {checkBox.map((item) => (
+              {furnishing.map((item) => (
                 <div key={item.id} className="product">
                   <div
                     onClick={() => handleCheckBox(item.search)}
@@ -457,7 +440,7 @@ const FilterPage = () => {
           <div tabIndex={0} className="collapse collapse-arrow ">
             <div className="collapse-title text-xl">Facing</div>
             <div className="collapse-content">
-              {checkBox.map((item) => (
+              {facing.map((item) => (
                 <div key={item.id} className="product">
                   <div
                     onClick={() => handleCheckBox(item.search)}
@@ -527,7 +510,7 @@ const FilterPage = () => {
             })}
           </div>
           {result ? "" : <p className="text-center">No result found...</p>}
-          <ProductCard newData={currentData} />
+          <ProductCard setData={setData} newData={currentData} />
 
           <Pagination
             currentPage={currentPage}

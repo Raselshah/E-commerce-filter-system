@@ -3,7 +3,7 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 import "../Style/Style.css";
 
-const MultiRangeSlider = ({
+const MultiAreaSlider = ({
   valueRange,
   minVal,
   setMinVal,
@@ -89,17 +89,19 @@ const MultiRangeSlider = ({
       <div className="slider">
         <div className="slider__track" />
         <div ref={range} className="slider__range" />
-        <div className="slider__left-value">{minVal / 10000} Lac</div>
-        <div className="slider__right-value">{maxVal / 100000}+ Cor</div>
+        <div className="slider__left-value">
+          {minVal > 1000 ? minVal / 1000 + "+k sq.ft" : minVal + "sq.ft"}
+        </div>
+        <div className="slider__right-value">{maxVal / 1000}k+ sq.ft</div>
       </div>
     </div>
   );
 };
 
-MultiRangeSlider.propTypes = {
+MultiAreaSlider.propTypes = {
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
-export default MultiRangeSlider;
+export default MultiAreaSlider;
