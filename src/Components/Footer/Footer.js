@@ -1,6 +1,13 @@
 import React from "react";
 import logo from "../../Assests/Logo.png";
 import "../Style/Style.css";
+import facebook from "../../Assests/Group (5).png";
+import linkedine from "../../Assests/Group (6).png";
+import twitter from "../../Assests/Group (7).png";
+import youtube from "../../Assests/Group (8).png";
+import email from "../../Assests/Group (9).png";
+import watch from "../../Assests/Group (10).png";
+import phone from "../../Assests/Vector (1).png";
 
 const Footer = () => {
   return (
@@ -14,6 +21,21 @@ const Footer = () => {
               typesetting industry.
               <br /> Lorem Ipsum has been the
             </p>
+
+            <div className="grid grid-flow-col gap-12 mt-4">
+              <a>
+                <img src={facebook} alt="" />
+              </a>
+              <a>
+                <img src={linkedine} alt="" />
+              </a>
+              <a>
+                <img src={twitter} alt="" />
+              </a>
+              <a>
+                <img src={youtube} alt="" />
+              </a>
+            </div>
           </div>
           <div className="mt-8">
             <span class="text-xl footer-title">Company</span>
@@ -59,9 +81,18 @@ const Footer = () => {
             <span class="text-xl  footer-title ">Keep in touch</span>
 
             <div className="mt-3 flex flex-col sm:flex-row justify-between gap-6">
-              <div className="flex flex-col  gap-3">
-                <a class="footer-font text-md cursor-pointer">
-                  info@metroghar.com
+              <div className="flex flex-col  gap-y-5">
+                <a class="footer-font flex justify-start items-center gap-2 text-md cursor-pointer">
+                  <img src={email} alt="" />
+                  <span className="footer-contact">info@metroghar.com</span>
+                </a>
+                <a class="footer-font flex justify-start items-center gap-2 text-md cursor-pointer">
+                  <img src={phone} alt="" />
+                  <span className="footer-contact">78291 14400</span>
+                </a>
+                <a class="footer-font flex justify-start items-center gap-2 text-md cursor-pointer">
+                  <img src={watch} alt="" />
+                  <span className="footer-contact">10:00 am - 6:00 pm</span>
                 </a>
               </div>
             </div>

@@ -13,7 +13,7 @@ const Pagination = ({ dataPerPage, totalData, paginate, currentPage }) => {
           onClick={() => paginate(number)}
           class={
             number === currentPage
-              ? "border-0 text-white text-lg bg-primary p-2 mx-1"
+              ? "border-0 text-white text-lg rounded-md bg-primary px-2 mx-1"
               : "border-0 text-lg bg-white text-center mx-4"
           }
         >

@@ -10,8 +10,19 @@
 }
 .filter-page::-webkit-scrollbar-thumb {
   background-color: rgb(115, 115, 115);
+  border-radius: 8px;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: rgba(128, 128, 128, 0.648);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(115, 115, 115);
+  border-radius: 8px;
+}
 .card-area {
   width: 827px;
 }
@@ -143,9 +154,9 @@
 }
 .background-footer {
   background-image: url("../../Assests/My project (1) 1.png");
-  background-color: rgba(189, 223, 229, 0.764);
+  background-color: rgb(189, 223, 229);
   background-blend-mode: overlay;
-  background-position: center;
+  background-position: right;
   background-repeat: no-repeat;
   height: 372px;
 }
@@ -156,9 +167,10 @@
   font-weight: 500;
 }
 .footer-title {
-  color: #1e90a5;
+  color: rgba(30, 144, 165, 1);
   font-weight: 500;
   font-size: 15px;
+
   line-height: 22.5px;
 }
 .footer-bg {
@@ -223,4 +235,11 @@
   border: 1px solid #b7b7b7;
   width: 205px;
   margin-top: 4px;
+}
+
+.footer-contact {
+  color: rgba(47, 47, 47, 1);
+  font-weight: 500;
+  line-height: 22.5px;
+  font-size: 15px;
 }

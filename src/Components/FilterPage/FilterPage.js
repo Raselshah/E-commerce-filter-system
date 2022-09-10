@@ -145,7 +145,7 @@ const FilterPage = () => {
 
     //  bhkButton filtering data
     if (activeButton) {
-      updateData = data.filter((data) => data.square === activeButton);
+      updateData = updateData.filter((data) => data.square === activeButton);
       setActive(activeButton);
     }
 
