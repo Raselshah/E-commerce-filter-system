@@ -100,7 +100,7 @@ const Footer = () => {
         </footer>
       </div>
       <div className="footer-bg">
-        <footer class="py-6 px-24 text-neutral-content max-w-screen-2xl text-center">
+        <footer class="py-3 px-24 border-footer text-neutral-content max-w-screen-2xl text-center">
           <p>Copyright 2022 metroghar.com - All rights Reserved</p>
         </footer>
       </div>

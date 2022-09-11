@@ -1,15 +1,20 @@
 .filter-page {
   background-color: #f9f9f9;
   height: 100vh;
+  position: -webkit-sticky;
 }
-.filter-page::-webkit-scrollbar {
-  width: 7px;
+.filter-page-slide {
+  height: 90vh;
+  position: relative;
 }
-.filter-page::-webkit-scrollbar-track {
-  background-color: rgba(128, 128, 128, 0.648);
+.filter-page-slide::-webkit-scrollbar {
+  width: 5px;
 }
-.filter-page::-webkit-scrollbar-thumb {
-  background-color: rgb(115, 115, 115);
+.filter-page-slide::-webkit-scrollbar-track {
+  background-color: rgba(128, 128, 128, 0.422);
+}
+.filter-page-slide::-webkit-scrollbar-thumb {
+  background-color: rgba(115, 115, 115, 0.392);
   border-radius: 8px;
 }
 
@@ -17,10 +22,10 @@
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background-color: rgba(128, 128, 128, 0.648);
+  background-color: rgba(128, 128, 128, 0.422);
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(115, 115, 115);
+  background-color: rgba(115, 115, 115, 0.392);
   border-radius: 8px;
 }
 .card-area {
@@ -175,7 +180,11 @@
 }
 .footer-bg {
   background: #bddfe5;
-  border-top: 3px solid #1e91a5a7;
+}
+.border-footer {
+  border-top: 3px solid rgba(30, 144, 165, 1);
+  margin: auto;
+  max-width: 1328px;
 }
 .b-left {
   border-left: 1px solid #000000;
@@ -189,10 +198,18 @@
   gap: 1rem;
 }
 .productInput {
-  height: 1rem;
-  width: 1rem;
-  border: 1px solid rgb(48, 47, 47);
-  border-radius: 2px;
+  height: 18px;
+  width: 18px;
+  background-image: url("../../Assests/check_box_outline_blank_24px.png");
+  border-radius: 3px;
+  position: relative;
+}
+
+.active {
+  height: 18px;
+  width: 18px;
+  background-image: url("../../Assests/check_box_outline_blank_24fghpx.png");
+  border-radius: 3px;
   position: relative;
 }
 .productInputBefore {
@@ -201,7 +218,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #4d5454;
   z-index: 1;
 }
 .productInputAfter {
