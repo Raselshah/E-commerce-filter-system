@@ -259,3 +259,14 @@
   line-height: 22.5px;
   font-size: 15px;
 }
+.removeButton .clearButton {
+  background: url("../../Assests/Group.png") no-repeat;
+  display: inline-block;
+  height: 16px;
+  width: 13px;
+}
+.removeButton:hover .clearButton {
+  background: url("../../Assests/Group\ \(1\).png") no-repeat;
+  height: 16px;
+  width: 13px;
+}

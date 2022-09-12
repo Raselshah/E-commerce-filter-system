@@ -12,7 +12,6 @@ import leftIcon from "../../Assests/XMLID_2224_.png";
 import buttonIcon from "../../Assests/Group.png";
 import downKey from "../../Assests/XMLID_224_.png";
 import select from "../../Assests/vvb.png";
-import clear from "../../Assests/gd.png";
 import "../Style/Style.css";
 import ProductCard from "./ProductCard.js";
 import MultiRangeSlider from "./MultiRangeSlider";
@@ -190,8 +189,10 @@ const FilterPage = () => {
   useEffect(() => {
     applyFilter();
   }, [checkBox, min, max, possessionCheckBox, minArea, maxArea, buttonAllList]);
-
+  const [toggle, setToggle] = useState(false);
+  console.log(toggle);
   const handleEmptyData = () => {
+    setToggle(!toggle);
     setCheckBox(propertyList);
     setButtonAllList(buttonList);
     setPossessionCheckBox(positionStatus);
@@ -206,7 +207,7 @@ const FilterPage = () => {
 
   return (
     <div className="max-w-screen-2xl px-6 xl:px-12 mt-10 mx-auto">
-      <from onSubmit={() => handleEmptyData()}>
+      <div>
         <h2 className="flex gap-x-2 justify-start items-center">
           <span>
             <img src={leftIcon} alt="" />
@@ -219,14 +220,10 @@ const FilterPage = () => {
               <h2 className="text-2xl text-primary mb-2">Filters</h2>
               <button
                 onClick={() => handleEmptyData()}
-                className="btn btn-outline hover:bg-primary hover:border-none flex justify-between items-center gap-x-2 border-primary btn-xs text-primary hover:text-white"
+                className="btn btn-outline hover:bg-primary hover:border-none flex justify-between items-center gap-x-2 border-primary btn-xs text-primary hover:text-white removeButton"
               >
-                <span className="">
-                  <img
-                    className="h-4 w-4 img-fluid"
-                    src={` ${buttonIcon}`}
-                    alt=""
-                  />
+                <span className="clearButton">
+                  
                 </span>
                 <span className="text-xs ">Clear Filter</span>
               </button>
@@ -610,7 +607,7 @@ const FilterPage = () => {
             />
           </div>
         </div>
-      </from>
+      </div>
     </div>
   );
 };
